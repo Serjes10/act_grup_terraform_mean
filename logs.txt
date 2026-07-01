@@ -1,0 +1,1054 @@
+PS D:\Documentos\Maestria\Herramientas Devops\terraform\despliegue_terraform> terraform plan
+
+Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # module.mongodb_instance.aws_instance.mongodb will be created
+  + resource "aws_instance" "mongodb" {
+      + ami                                  = "ami-0fb0b230890ccd1e6"
+      + arn                                  = (known after apply)
+      + associate_public_ip_address          = (known after apply)
+      + availability_zone                    = (known after apply)
+      + cpu_core_count                       = (known after apply)
+      + cpu_threads_per_core                 = (known after apply)
+      + disable_api_stop                     = (known after apply)
+      + disable_api_termination              = (known after apply)
+      + ebs_optimized                        = (known after apply)
+      + enable_primary_ipv6                  = (known after apply)
+      + get_password_data                    = false
+      + host_id                              = (known after apply)
+      + host_resource_group_arn              = (known after apply)
+      + iam_instance_profile                 = (known after apply)
+      + id                                   = (known after apply)
+      + instance_initiated_shutdown_behavior = (known after apply)
+      + instance_lifecycle                   = (known after apply)
+      + instance_state                       = (known after apply)
+      + instance_type                        = "t2.micro"
+      + ipv6_address_count                   = (known after apply)
+      + ipv6_addresses                       = (known after apply)
+      + key_name                             = "aws-practica"
+      + monitoring                           = (known after apply)
+      + outpost_arn                          = (known after apply)
+      + password_data                        = (known after apply)
+      + placement_group                      = (known after apply)
+      + placement_partition_number           = (known after apply)
+      + primary_network_interface_id         = (known after apply)
+      + private_dns                          = (known after apply)
+      + private_ip                           = (known after apply)
+      + public_dns                           = (known after apply)
+      + public_ip                            = (known after apply)
+      + secondary_private_ips                = (known after apply)
+      + security_groups                      = (known after apply)
+      + source_dest_check                    = true
+      + spot_instance_request_id             = (known after apply)
+      + subnet_id                            = (known after apply)
+      + tags                                 = {
+          + "Name" = "mongodb-server"
+        }
+      + tags_all                             = {
+          + "Name" = "mongodb-server"
+        }
+      + tenancy                              = (known after apply)
+      + user_data                            = "755a16af4bdca47e4600fe68fc8c7a26982fa46e"
+      + user_data_base64                     = (known after apply)
+      + user_data_replace_on_change          = false
+      + vpc_security_group_ids               = (known after apply)
+
+      + capacity_reservation_specification (known after apply)
+
+      + cpu_options (known after apply)
+
+      + ebs_block_device (known after apply)
+
+      + enclave_options (known after apply)
+
+      + ephemeral_block_device (known after apply)
+
+      + instance_market_options (known after apply)
+
+      + maintenance_options (known after apply)
+
+      + metadata_options (known after apply)
+
+      + network_interface (known after apply)
+
+      + private_dns_name_options (known after apply)
+
+      + root_block_device (known after apply)
+    }
+
+  # module.networking.aws_internet_gateway.main will be created
+  + resource "aws_internet_gateway" "main" {
+      + arn      = (known after apply)
+      + id       = (known after apply)
+      + owner_id = (known after apply)
+      + tags     = {
+          + "Name" = "mean-igw"
+        }
+      + tags_all = {
+          + "Name" = "mean-igw"
+        }
+      + vpc_id   = (known after apply)
+    }
+
+  # module.networking.aws_route_table.public will be created
+  + resource "aws_route_table" "public" {
+      + arn              = (known after apply)
+      + id               = (known after apply)
+      + owner_id         = (known after apply)
+      + propagating_vgws = (known after apply)
+      + route            = [
+          + {
+              + cidr_block                 = "0.0.0.0/0"
+              + gateway_id                 = (known after apply)
+                # (11 unchanged attributes hidden)
+            },
+        ]
+      + tags             = {
+          + "Name" = "mean-public-rt"
+        }
+      + tags_all         = {
+          + "Name" = "mean-public-rt"
+        }
+      + vpc_id           = (known after apply)
+    }
+
+  # module.networking.aws_route_table_association.public will be created
+  + resource "aws_route_table_association" "public" {
+      + id             = (known after apply)
+      + route_table_id = (known after apply)
+      + subnet_id      = (known after apply)
+    }
+
+  # module.networking.aws_subnet.private will be created
+  + resource "aws_subnet" "private" {
+      + arn                                            = (known after apply)
+      + assign_ipv6_address_on_creation                = false
+      + availability_zone                              = "us-east-1a"
+      + availability_zone_id                           = (known after apply)
+      + cidr_block                                     = "10.0.2.0/24"
+      + enable_dns64                                   = false
+      + enable_resource_name_dns_a_record_on_launch    = false
+      + enable_resource_name_dns_aaaa_record_on_launch = false
+      + id                                             = (known after apply)
+      + ipv6_cidr_block_association_id                 = (known after apply)
+      + ipv6_native                                    = false
+      + map_public_ip_on_launch                        = false
+      + owner_id                                       = (known after apply)
+      + private_dns_hostname_type_on_launch            = (known after apply)
+      + tags                                           = {
+          + "Name" = "mean-private-subnet"
+        }
+      + tags_all                                       = {
+          + "Name" = "mean-private-subnet"
+        }
+      + vpc_id                                         = (known after apply)
+    }
+
+  # module.networking.aws_subnet.public will be created
+  + resource "aws_subnet" "public" {
+      + arn                                            = (known after apply)
+      + assign_ipv6_address_on_creation                = false
+      + availability_zone                              = "us-east-1a"
+      + availability_zone_id                           = (known after apply)
+      + cidr_block                                     = "10.0.1.0/24"
+      + enable_dns64                                   = false
+      + enable_resource_name_dns_a_record_on_launch    = false
+      + enable_resource_name_dns_aaaa_record_on_launch = false
+      + id                                             = (known after apply)
+      + ipv6_cidr_block_association_id                 = (known after apply)
+      + ipv6_native                                    = false
+      + map_public_ip_on_launch                        = true
+      + owner_id                                       = (known after apply)
+      + private_dns_hostname_type_on_launch            = (known after apply)
+      + tags                                           = {
+          + "Name" = "mean-public-subnet"
+        }
+      + tags_all                                       = {
+          + "Name" = "mean-public-subnet"
+        }
+      + vpc_id                                         = (known after apply)
+    }
+
+  # module.networking.aws_vpc.main will be created
+  + resource "aws_vpc" "main" {
+      + arn                                  = (known after apply)
+      + cidr_block                           = "10.0.0.0/16"
+      + default_network_acl_id               = (known after apply)
+      + default_route_table_id               = (known after apply)
+      + default_security_group_id            = (known after apply)
+      + dhcp_options_id                      = (known after apply)
+      + enable_dns_hostnames                 = true
+      + enable_dns_support                   = true
+      + enable_network_address_usage_metrics = (known after apply)
+      + id                                   = (known after apply)
+      + instance_tenancy                     = "default"
+      + ipv6_association_id                  = (known after apply)
+      + ipv6_cidr_block                      = (known after apply)
+      + ipv6_cidr_block_network_border_group = (known after apply)
+      + main_route_table_id                  = (known after apply)
+      + owner_id                             = (known after apply)
+      + tags                                 = {
+          + "Name" = "mean-vpc"
+        }
+      + tags_all                             = {
+          + "Name" = "mean-vpc"
+        }
+    }
+
+  # module.nodejs_instance.aws_instance.nodejs will be created
+  + resource "aws_instance" "nodejs" {
+      + ami                                  = "nodejs-nginx-1782186938"
+      + arn                                  = (known after apply)
+      + associate_public_ip_address          = (known after apply)
+      + availability_zone                    = (known after apply)
+      + cpu_core_count                       = (known after apply)
+      + cpu_threads_per_core                 = (known after apply)
+      + disable_api_stop                     = (known after apply)
+      + disable_api_termination              = (known after apply)
+      + ebs_optimized                        = (known after apply)
+      + enable_primary_ipv6                  = (known after apply)
+      + get_password_data                    = false
+      + host_id                              = (known after apply)
+      + host_resource_group_arn              = (known after apply)
+      + iam_instance_profile                 = (known after apply)
+      + id                                   = (known after apply)
+      + instance_initiated_shutdown_behavior = (known after apply)
+      + instance_lifecycle                   = (known after apply)
+      + instance_state                       = (known after apply)
+      + instance_type                        = "t2.micro"
+      + ipv6_address_count                   = (known after apply)
+      + ipv6_addresses                       = (known after apply)
+      + key_name                             = "aws-practica"
+      + monitoring                           = (known after apply)
+      + outpost_arn                          = (known after apply)
+      + password_data                        = (known after apply)
+      + placement_group                      = (known after apply)
+      + placement_partition_number           = (known after apply)
+      + primary_network_interface_id         = (known after apply)
+      + private_dns                          = (known after apply)
+      + private_ip                           = (known after apply)
+      + public_dns                           = (known after apply)
+      + public_ip                            = (known after apply)
+      + secondary_private_ips                = (known after apply)
+      + security_groups                      = (known after apply)
+      + source_dest_check                    = true
+      + spot_instance_request_id             = (known after apply)
+      + subnet_id                            = (known after apply)
+      + tags                                 = {
+          + "Name" = "nodejs-nginx-server"
+        }
+      + tags_all                             = {
+          + "Name" = "nodejs-nginx-server"
+        }
+      + tenancy                              = (known after apply)
+      + user_data                            = (known after apply)
+      + user_data_base64                     = (known after apply)
+      + user_data_replace_on_change          = false
+      + vpc_security_group_ids               = (known after apply)
+
+      + capacity_reservation_specification (known after apply)
+
+      + cpu_options (known after apply)
+
+      + ebs_block_device (known after apply)
+
+      + enclave_options (known after apply)
+
+      + ephemeral_block_device (known after apply)
+
+      + instance_market_options (known after apply)
+
+      + maintenance_options (known after apply)
+
+      + metadata_options (known after apply)
+
+      + network_interface (known after apply)
+
+      + private_dns_name_options (known after apply)
+
+      + root_block_device (known after apply)
+    }
+
+  # module.security_groups.aws_security_group.mongodb will be created
+  + resource "aws_security_group" "mongodb" {
+      + arn                    = (known after apply)
+      + description            = "Permite acceso a MongoDB solo desde la instancia Node.js"
+      + egress                 = [
+          + {
+              + cidr_blocks      = [
+                  + "0.0.0.0/0",
+                ]
+              + from_port        = 0
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "-1"
+              + security_groups  = []
+              + self             = false
+              + to_port          = 0
+                # (1 unchanged attribute hidden)
+            },
+        ]
+      + id                     = (known after apply)
+      + ingress                = [
+          + {
+              + cidr_blocks      = [
+                  + "0.0.0.0/0",
+                ]
+              + description      = "SSH"
+              + from_port        = 22
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "tcp"
+              + security_groups  = []
+              + self             = false
+              + to_port          = 22
+            },
+          + {
+              + cidr_blocks      = []
+              + description      = "MongoDB desde Node.js"
+              + from_port        = 27017
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "tcp"
+              + security_groups  = (known after apply)
+              + self             = false
+              + to_port          = 27017
+            },
+        ]
+      + name                   = "mongodb-sg"
+      + name_prefix            = (known after apply)
+      + owner_id               = (known after apply)
+      + revoke_rules_on_delete = false
+      + tags                   = {
+          + "Name" = "mongodb-sg"
+        }
+      + tags_all               = {
+          + "Name" = "mongodb-sg"
+        }
+      + vpc_id                 = (known after apply)
+    }
+
+  # module.security_groups.aws_security_group.nodejs will be created
+  + resource "aws_security_group" "nodejs" {
+      + arn                    = (known after apply)
+      + description            = "Permite trafico HTTP, HTTPS y SSH a la instancia Node.js"
+      + egress                 = [
+          + {
+              + cidr_blocks      = [
+                  + "0.0.0.0/0",
+                ]
+              + from_port        = 0
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "-1"
+              + security_groups  = []
+              + self             = false
+              + to_port          = 0
+                # (1 unchanged attribute hidden)
+            },
+        ]
+      + id                     = (known after apply)
+      + ingress                = [
+          + {
+              + cidr_blocks      = [
+                  + "0.0.0.0/0",
+                ]
+              + description      = "HTTP"
+              + from_port        = 80
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "tcp"
+              + security_groups  = []
+              + self             = false
+              + to_port          = 80
+            },
+          + {
+              + cidr_blocks      = [
+                  + "0.0.0.0/0",
+                ]
+              + description      = "HTTPS"
+              + from_port        = 443
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "tcp"
+              + security_groups  = []
+              + self             = false
+              + to_port          = 443
+            },
+          + {
+              + cidr_blocks      = [
+                  + "0.0.0.0/0",
+                ]
+              + description      = "SSH"
+              + from_port        = 22
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "tcp"
+              + security_groups  = []
+              + self             = false
+              + to_port          = 22
+            },
+        ]
+      + name                   = "nodejs-sg"
+      + name_prefix            = (known after apply)
+      + owner_id               = (known after apply)
+      + revoke_rules_on_delete = false
+      + tags                   = {
+          + "Name" = "nodejs-sg"
+        }
+      + tags_all               = {
+          + "Name" = "nodejs-sg"
+        }
+      + vpc_id                 = (known after apply)
+    }
+
+Plan: 10 to add, 0 to change, 0 to destroy.
+
+PS D:\Documentos\Maestria\Herramientas Devops\terraform\despliegue_terraform> terraform apply
+module.networking.aws_vpc.main: Refreshing state... [id=vpc-01f89a4f34ac95bd4]
+module.networking.aws_internet_gateway.main: Refreshing state... [id=igw-0fa09bc30bb8e97d8]
+module.networking.aws_subnet.public: Refreshing state... [id=subnet-08d1e4843959ddca3]
+module.networking.aws_subnet.private: Refreshing state... [id=subnet-0d4fc7b8544f84f7f]
+module.security_groups.aws_security_group.nodejs: Refreshing state... [id=sg-0cfd4540ff2980308]
+module.networking.aws_route_table.public: Refreshing state... [id=rtb-06a10ad557200f6a1]
+module.networking.aws_route_table_association.public: Refreshing state... [id=rtbassoc-08edaf7baa31a6aa7]
+module.security_groups.aws_security_group.mongodb: Refreshing state... [id=sg-0750be766a1c8980f]
+module.mongodb_instance.aws_instance.mongodb: Refreshing state... [id=i-08ebdd01a32013876]
+
+Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # module.nodejs_instance.aws_instance.nodejs will be created
+  + resource "aws_instance" "nodejs" {
+      + ami                                  = "ami-00b9e6fae81f0eeac"
+      + arn                                  = (known after apply)
+      + associate_public_ip_address          = (known after apply)
+      + availability_zone                    = (known after apply)
+      + cpu_core_count                       = (known after apply)
+      + cpu_threads_per_core                 = (known after apply)
+      + disable_api_stop                     = (known after apply)
+      + disable_api_termination              = (known after apply)
+      + ebs_optimized                        = (known after apply)
+      + enable_primary_ipv6                  = (known after apply)
+      + get_password_data                    = false
+      + host_id                              = (known after apply)
+      + host_resource_group_arn              = (known after apply)
+      + iam_instance_profile                 = (known after apply)
+      + id                                   = (known after apply)
+      + instance_initiated_shutdown_behavior = (known after apply)
+      + instance_lifecycle                   = (known after apply)
+      + instance_state                       = (known after apply)
+      + instance_type                        = "t2.micro"
+      + ipv6_address_count                   = (known after apply)
+      + ipv6_addresses                       = (known after apply)
+      + key_name                             = "aws-practica"
+      + monitoring                           = (known after apply)
+      + outpost_arn                          = (known after apply)
+      + password_data                        = (known after apply)
+      + placement_group                      = (known after apply)
+      + placement_partition_number           = (known after apply)
+      + primary_network_interface_id         = (known after apply)
+      + private_dns                          = (known after apply)
+      + private_ip                           = (known after apply)
+      + public_dns                           = (known after apply)
+      + public_ip                            = (known after apply)
+      + secondary_private_ips                = (known after apply)
+      + security_groups                      = (known after apply)
+      + source_dest_check                    = true
+      + spot_instance_request_id             = (known after apply)
+      + subnet_id                            = "subnet-08d1e4843959ddca3"
+      + tags                                 = {
+          + "Name" = "nodejs-nginx-server"
+        }
+      + tags_all                             = {
+          + "Name" = "nodejs-nginx-server"
+        }
+      + tenancy                              = (known after apply)
+      + user_data                            = (known after apply)
+      + user_data_base64                     = (known after apply)
+      + user_data_replace_on_change          = false
+      + vpc_security_group_ids               = [
+          + "sg-0cfd4540ff2980308",
+        ]
+
+      + capacity_reservation_specification (known after apply)
+
+      + cpu_options (known after apply)
+
+      + ebs_block_device (known after apply)
+
+      + enclave_options (known after apply)
+
+      + ephemeral_block_device (known after apply)
+
+      + instance_market_options (known after apply)
+
+      + maintenance_options (known after apply)
+
+      + metadata_options (known after apply)
+
+      + network_interface (known after apply)
+
+      + private_dns_name_options (known after apply)
+
+      + root_block_device (known after apply)
+    }
+
+Plan: 1 to add, 0 to change, 0 to destroy.
+
+Do you want to perform these actions?
+  Terraform will perform the actions described above.
+  Only 'yes' will be accepted to approve.
+
+  Enter a value: yes
+
+module.nodejs_instance.aws_instance.nodejs: Creating...
+module.nodejs_instance.aws_instance.nodejs: Still creating... [00m10s elapsed]
+module.nodejs_instance.aws_instance.nodejs: Still creating... [00m20s elapsed]
+module.nodejs_instance.aws_instance.nodejs: Still creating... [00m30s elapsed]
+module.nodejs_instance.aws_instance.nodejs: Creation complete after 33s [id=i-0e78138f060f1f38e]
+
+Apply complete! Resources: 1 added, 0 changed, 0 destroyed.
+
+PS D:\Documentos\Maestria\Herramientas Devops\terraform\despliegue_terraform> curl 44.211.119.251              
+
+Advertencia de seguridad: riesgo de ejecución de script
+Invoke-WebRequest analiza el contenido de la página web. El código de script de la página web se puede ejecutar cuando se analiza la página.
+      ACCIÓN RECOMENDADA:
+      Usa el modificador -UseBasicParsing para evitar la ejecución de código de script.
+
+      ¿Quieres continuar?
+    
+[S] Sí  [O] Sí a todo  [N] No  [T] No a todo  [U] Suspender  [?] Ayuda (el valor predeterminado es "N"): s
+
+
+StatusCode        : 200
+StatusDescription : OK
+Content           : Hola desde Node.js corriendo detras de Nginx desplegado con packer
+RawContent        : HTTP/1.1 200 OK
+                    Connection: keep-alive
+                    Content-Length: 66
+                    Content-Type: text/html; charset=utf-8
+                    Date: Wed, 01 Jul 2026 04:24:14 GMT
+                    ETag: W/"42-c7defSwOoQoHmYjfNfRzbFOaRRs"
+                    Server: nginx/1.18.0...
+Forms             : {}
+Headers           : {[Connection, keep-alive], [Content-Length, 66], [Content-Type, text/html; charset=utf-8], [Date, Wed, 01 Jul 2026 04:24:14 GMT]...}
+Images            : {}
+InputFields       : {}
+Links             : {}
+ParsedHtml        : mshtml.HTMLDocumentClass
+RawContentLength  : 66
+
+
+PS D:\Documentos\Maestria\Herramientas Devops\terraform\despliegue_terraform> terraform destroy
+module.networking.aws_vpc.main: Refreshing state... [id=vpc-01f89a4f34ac95bd4]
+module.networking.aws_internet_gateway.main: Refreshing state... [id=igw-0fa09bc30bb8e97d8]
+module.networking.aws_subnet.public: Refreshing state... [id=subnet-08d1e4843959ddca3]
+module.networking.aws_subnet.private: Refreshing state... [id=subnet-0d4fc7b8544f84f7f]
+module.security_groups.aws_security_group.nodejs: Refreshing state... [id=sg-0cfd4540ff2980308]
+module.networking.aws_route_table.public: Refreshing state... [id=rtb-06a10ad557200f6a1]
+module.networking.aws_route_table_association.public: Refreshing state... [id=rtbassoc-08edaf7baa31a6aa7]
+module.security_groups.aws_security_group.mongodb: Refreshing state... [id=sg-0750be766a1c8980f]
+module.nodejs_instance.aws_instance.nodejs: Refreshing state... [id=i-0e78138f060f1f38e]
+module.mongodb_instance.aws_instance.mongodb: Refreshing state... [id=i-08ebdd01a32013876]
+
+Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the following symbols:
+  - destroy
+
+Terraform will perform the following actions:
+
+  # module.mongodb_instance.aws_instance.mongodb will be destroyed
+  - resource "aws_instance" "mongodb" {
+      - ami                                  = "ami-0fb0b230890ccd1e6" -> null
+      - arn                                  = "arn:aws:ec2:us-east-1:122444737672:instance/i-08ebdd01a32013876" -> null
+      - associate_public_ip_address          = true -> null
+      - availability_zone                    = "us-east-1a" -> null
+      - cpu_core_count                       = 1 -> null
+      - cpu_threads_per_core                 = 1 -> null
+      - disable_api_stop                     = false -> null
+      - disable_api_termination              = false -> null
+      - ebs_optimized                        = false -> null
+      - get_password_data                    = false -> null
+      - hibernation                          = false -> null
+      - id                                   = "i-08ebdd01a32013876" -> null
+      - instance_initiated_shutdown_behavior = "stop" -> null
+      - instance_state                       = "running" -> null
+      - instance_type                        = "t2.micro" -> null
+      - ipv6_address_count                   = 0 -> null
+      - ipv6_addresses                       = [] -> null
+      - key_name                             = "aws-practica" -> null
+      - monitoring                           = false -> null
+      - placement_partition_number           = 0 -> null
+      - primary_network_interface_id         = "eni-051946889dbe1d355" -> null
+      - private_dns                          = "ip-10-0-1-127.ec2.internal" -> null
+      - private_ip                           = "10.0.1.127" -> null
+      - public_dns                           = "ec2-3-235-124-58.compute-1.amazonaws.com" -> null
+      - public_ip                            = "3.235.124.58" -> null
+      - secondary_private_ips                = [] -> null
+      - security_groups                      = [] -> null
+      - source_dest_check                    = true -> null
+      - subnet_id                            = "subnet-08d1e4843959ddca3" -> null
+      - tags                                 = {
+          - "Name" = "mongodb-server"
+        } -> null
+      - tags_all                             = {
+          - "Name" = "mongodb-server"
+        } -> null
+      - tenancy                              = "default" -> null
+      - user_data                            = "755a16af4bdca47e4600fe68fc8c7a26982fa46e" -> null
+      - user_data_replace_on_change          = false -> null
+      - vpc_security_group_ids               = [
+          - "sg-0750be766a1c8980f",
+        ] -> null
+        # (7 unchanged attributes hidden)
+
+      - capacity_reservation_specification {
+          - capacity_reservation_preference = "open" -> null
+        }
+
+      - cpu_options {
+          - core_count       = 1 -> null
+          - threads_per_core = 1 -> null
+            # (1 unchanged attribute hidden)
+        }
+
+      - credit_specification {
+          - cpu_credits = "standard" -> null
+        }
+
+      - enclave_options {
+          - enabled = false -> null
+        }
+
+      - maintenance_options {
+          - auto_recovery = "default" -> null
+        }
+
+      - metadata_options {
+          - http_endpoint               = "enabled" -> null
+          - http_protocol_ipv6          = "disabled" -> null
+          - http_put_response_hop_limit = 1 -> null
+          - http_tokens                 = "optional" -> null
+          - instance_metadata_tags      = "disabled" -> null
+        }
+
+      - private_dns_name_options {
+          - enable_resource_name_dns_a_record    = false -> null
+          - enable_resource_name_dns_aaaa_record = false -> null
+          - hostname_type                        = "ip-name" -> null
+        }
+
+      - root_block_device {
+          - delete_on_termination = true -> null
+          - device_name           = "/dev/sda1" -> null
+          - encrypted             = false -> null
+          - iops                  = 100 -> null
+          - tags                  = {} -> null
+          - tags_all              = {} -> null
+          - throughput            = 0 -> null
+          - volume_id             = "vol-0079a54a6322cb676" -> null
+          - volume_size           = 8 -> null
+          - volume_type           = "gp2" -> null
+            # (1 unchanged attribute hidden)
+        }
+    }
+
+  # module.networking.aws_internet_gateway.main will be destroyed
+  - resource "aws_internet_gateway" "main" {
+      - arn      = "arn:aws:ec2:us-east-1:122444737672:internet-gateway/igw-0fa09bc30bb8e97d8" -> null
+      - id       = "igw-0fa09bc30bb8e97d8" -> null
+      - owner_id = "122444737672" -> null
+      - tags     = {
+          - "Name" = "mean-igw"
+        } -> null
+      - tags_all = {
+          - "Name" = "mean-igw"
+        } -> null
+      - vpc_id   = "vpc-01f89a4f34ac95bd4" -> null
+    }
+
+  # module.networking.aws_route_table.public will be destroyed
+  - resource "aws_route_table" "public" {
+      - arn              = "arn:aws:ec2:us-east-1:122444737672:route-table/rtb-06a10ad557200f6a1" -> null
+      - id               = "rtb-06a10ad557200f6a1" -> null
+      - owner_id         = "122444737672" -> null
+      - propagating_vgws = [] -> null
+      - route            = [
+          - {
+              - cidr_block                 = "0.0.0.0/0"
+              - gateway_id                 = "igw-0fa09bc30bb8e97d8"
+                # (11 unchanged attributes hidden)
+            },
+        ] -> null
+      - tags             = {
+          - "Name" = "mean-public-rt"
+        } -> null
+      - tags_all         = {
+          - "Name" = "mean-public-rt"
+        } -> null
+      - vpc_id           = "vpc-01f89a4f34ac95bd4" -> null
+    }
+
+  # module.networking.aws_route_table_association.public will be destroyed
+  - resource "aws_route_table_association" "public" {
+      - id             = "rtbassoc-08edaf7baa31a6aa7" -> null
+      - route_table_id = "rtb-06a10ad557200f6a1" -> null
+      - subnet_id      = "subnet-08d1e4843959ddca3" -> null
+        # (1 unchanged attribute hidden)
+    }
+
+  # module.networking.aws_subnet.private will be destroyed
+  - resource "aws_subnet" "private" {
+      - arn                                            = "arn:aws:ec2:us-east-1:122444737672:subnet/subnet-0d4fc7b8544f84f7f" -> null
+      - assign_ipv6_address_on_creation                = false -> null
+      - availability_zone                              = "us-east-1a" -> null
+      - availability_zone_id                           = "use1-az1" -> null
+      - cidr_block                                     = "10.0.2.0/24" -> null
+      - enable_dns64                                   = false -> null
+      - enable_lni_at_device_index                     = 0 -> null
+      - enable_resource_name_dns_a_record_on_launch    = false -> null
+      - enable_resource_name_dns_aaaa_record_on_launch = false -> null
+      - id                                             = "subnet-0d4fc7b8544f84f7f" -> null
+      - ipv6_native                                    = false -> null
+      - map_customer_owned_ip_on_launch                = false -> null
+      - map_public_ip_on_launch                        = false -> null
+      - owner_id                                       = "122444737672" -> null
+      - private_dns_hostname_type_on_launch            = "ip-name" -> null
+      - tags                                           = {
+          - "Name" = "mean-private-subnet"
+        } -> null
+      - tags_all                                       = {
+          - "Name" = "mean-private-subnet"
+        } -> null
+      - vpc_id                                         = "vpc-01f89a4f34ac95bd4" -> null
+        # (4 unchanged attributes hidden)
+    }
+
+  # module.networking.aws_subnet.public will be destroyed
+  - resource "aws_subnet" "public" {
+      - arn                                            = "arn:aws:ec2:us-east-1:122444737672:subnet/subnet-08d1e4843959ddca3" -> null
+      - assign_ipv6_address_on_creation                = false -> null
+      - availability_zone                              = "us-east-1a" -> null
+      - availability_zone_id                           = "use1-az1" -> null
+      - cidr_block                                     = "10.0.1.0/24" -> null
+      - enable_dns64                                   = false -> null
+      - enable_lni_at_device_index                     = 0 -> null
+      - enable_resource_name_dns_a_record_on_launch    = false -> null
+      - enable_resource_name_dns_aaaa_record_on_launch = false -> null
+      - id                                             = "subnet-08d1e4843959ddca3" -> null
+      - ipv6_native                                    = false -> null
+      - map_customer_owned_ip_on_launch                = false -> null
+      - map_public_ip_on_launch                        = true -> null
+      - owner_id                                       = "122444737672" -> null
+      - private_dns_hostname_type_on_launch            = "ip-name" -> null
+      - tags                                           = {
+          - "Name" = "mean-public-subnet"
+        } -> null
+      - tags_all                                       = {
+          - "Name" = "mean-public-subnet"
+        } -> null
+      - vpc_id                                         = "vpc-01f89a4f34ac95bd4" -> null
+        # (4 unchanged attributes hidden)
+    }
+
+  # module.networking.aws_vpc.main will be destroyed
+  - resource "aws_vpc" "main" {
+      - arn                                  = "arn:aws:ec2:us-east-1:122444737672:vpc/vpc-01f89a4f34ac95bd4" -> null
+      - assign_generated_ipv6_cidr_block     = false -> null
+      - cidr_block                           = "10.0.0.0/16" -> null
+      - default_network_acl_id               = "acl-046104b886cb2cdf9" -> null
+      - default_route_table_id               = "rtb-0af03b1209c381245" -> null
+      - default_security_group_id            = "sg-02899f98e7293aaea" -> null
+      - dhcp_options_id                      = "dopt-0a113b5735418ea6a" -> null
+      - enable_dns_hostnames                 = true -> null
+      - enable_dns_support                   = true -> null
+      - enable_network_address_usage_metrics = false -> null
+      - id                                   = "vpc-01f89a4f34ac95bd4" -> null
+      - instance_tenancy                     = "default" -> null
+      - ipv6_netmask_length                  = 0 -> null
+      - main_route_table_id                  = "rtb-0af03b1209c381245" -> null
+      - owner_id                             = "122444737672" -> null
+      - tags                                 = {
+          - "Name" = "mean-vpc"
+        } -> null
+      - tags_all                             = {
+          - "Name" = "mean-vpc"
+        } -> null
+        # (4 unchanged attributes hidden)
+    }
+
+  # module.nodejs_instance.aws_instance.nodejs will be destroyed
+  - resource "aws_instance" "nodejs" {
+      - ami                                  = "ami-00b9e6fae81f0eeac" -> null
+      - arn                                  = "arn:aws:ec2:us-east-1:122444737672:instance/i-0e78138f060f1f38e" -> null
+      - associate_public_ip_address          = true -> null
+      - availability_zone                    = "us-east-1a" -> null
+      - cpu_core_count                       = 1 -> null
+      - cpu_threads_per_core                 = 1 -> null
+      - disable_api_stop                     = false -> null
+      - disable_api_termination              = false -> null
+      - ebs_optimized                        = false -> null
+      - get_password_data                    = false -> null
+      - hibernation                          = false -> null
+      - id                                   = "i-0e78138f060f1f38e" -> null
+      - instance_initiated_shutdown_behavior = "stop" -> null
+      - instance_state                       = "running" -> null
+      - instance_type                        = "t2.micro" -> null
+      - ipv6_address_count                   = 0 -> null
+      - ipv6_addresses                       = [] -> null
+      - key_name                             = "aws-practica" -> null
+      - monitoring                           = false -> null
+      - placement_partition_number           = 0 -> null
+      - primary_network_interface_id         = "eni-006ad34add52c73a6" -> null
+      - private_dns                          = "ip-10-0-1-209.ec2.internal" -> null
+      - private_ip                           = "10.0.1.209" -> null
+      - public_dns                           = "ec2-44-211-119-251.compute-1.amazonaws.com" -> null
+      - public_ip                            = "44.211.119.251" -> null
+      - secondary_private_ips                = [] -> null
+      - security_groups                      = [] -> null
+      - source_dest_check                    = true -> null
+      - subnet_id                            = "subnet-08d1e4843959ddca3" -> null
+      - tags                                 = {
+          - "Name" = "nodejs-nginx-server"
+        } -> null
+      - tags_all                             = {
+          - "Name" = "nodejs-nginx-server"
+        } -> null
+      - tenancy                              = "default" -> null
+      - user_data_replace_on_change          = false -> null
+      - vpc_security_group_ids               = [
+          - "sg-0cfd4540ff2980308",
+        ] -> null
+        # (7 unchanged attributes hidden)
+
+      - capacity_reservation_specification {
+          - capacity_reservation_preference = "open" -> null
+        }
+
+      - cpu_options {
+          - core_count       = 1 -> null
+          - threads_per_core = 1 -> null
+            # (1 unchanged attribute hidden)
+        }
+
+      - credit_specification {
+          - cpu_credits = "standard" -> null
+        }
+
+      - enclave_options {
+          - enabled = false -> null
+        }
+
+      - maintenance_options {
+          - auto_recovery = "default" -> null
+        }
+
+      - metadata_options {
+          - http_endpoint               = "enabled" -> null
+          - http_protocol_ipv6          = "disabled" -> null
+          - http_put_response_hop_limit = 1 -> null
+          - http_tokens                 = "optional" -> null
+          - instance_metadata_tags      = "disabled" -> null
+        }
+
+      - private_dns_name_options {
+          - enable_resource_name_dns_a_record    = false -> null
+          - enable_resource_name_dns_aaaa_record = false -> null
+          - hostname_type                        = "ip-name" -> null
+        }
+
+      - root_block_device {
+          - delete_on_termination = true -> null
+          - device_name           = "/dev/sda1" -> null
+          - encrypted             = false -> null
+          - iops                  = 3000 -> null
+          - tags                  = {} -> null
+          - tags_all              = {} -> null
+          - throughput            = 125 -> null
+          - volume_id             = "vol-0aeca5be6d3c5a9a7" -> null
+          - volume_size           = 8 -> null
+          - volume_type           = "gp3" -> null
+            # (1 unchanged attribute hidden)
+        }
+    }
+
+  # module.security_groups.aws_security_group.mongodb will be destroyed
+  - resource "aws_security_group" "mongodb" {
+      - arn                    = "arn:aws:ec2:us-east-1:122444737672:security-group/sg-0750be766a1c8980f" -> null
+      - description            = "Permite acceso a MongoDB solo desde la instancia Node.js" -> null
+      - egress                 = [
+          - {
+              - cidr_blocks      = [
+                  - "0.0.0.0/0",
+                ]
+              - from_port        = 0
+              - ipv6_cidr_blocks = []
+              - prefix_list_ids  = []
+              - protocol         = "-1"
+              - security_groups  = []
+              - self             = false
+              - to_port          = 0
+                # (1 unchanged attribute hidden)
+            },
+        ] -> null
+      - id                     = "sg-0750be766a1c8980f" -> null
+      - ingress                = [
+          - {
+              - cidr_blocks      = [
+                  - "0.0.0.0/0",
+                ]
+              - description      = "SSH"
+              - from_port        = 22
+              - ipv6_cidr_blocks = []
+              - prefix_list_ids  = []
+              - protocol         = "tcp"
+              - security_groups  = []
+              - self             = false
+              - to_port          = 22
+            },
+          - {
+              - cidr_blocks      = []
+              - description      = "MongoDB desde Node.js"
+              - from_port        = 27017
+              - ipv6_cidr_blocks = []
+              - prefix_list_ids  = []
+              - protocol         = "tcp"
+              - security_groups  = [
+                  - "sg-0cfd4540ff2980308",
+                ]
+              - self             = false
+              - to_port          = 27017
+            },
+        ] -> null
+      - name                   = "mongodb-sg" -> null
+      - owner_id               = "122444737672" -> null
+      - revoke_rules_on_delete = false -> null
+      - tags                   = {
+          - "Name" = "mongodb-sg"
+        } -> null
+      - tags_all               = {
+          - "Name" = "mongodb-sg"
+        } -> null
+      - vpc_id                 = "vpc-01f89a4f34ac95bd4" -> null
+        # (1 unchanged attribute hidden)
+    }
+
+  # module.security_groups.aws_security_group.nodejs will be destroyed
+  - resource "aws_security_group" "nodejs" {
+      - arn                    = "arn:aws:ec2:us-east-1:122444737672:security-group/sg-0cfd4540ff2980308" -> null
+      - description            = "Permite trafico HTTP, HTTPS y SSH a la instancia Node.js" -> null
+      - egress                 = [
+          - {
+              - cidr_blocks      = [
+                  - "0.0.0.0/0",
+                ]
+              - from_port        = 0
+              - ipv6_cidr_blocks = []
+              - prefix_list_ids  = []
+              - protocol         = "-1"
+              - security_groups  = []
+              - self             = false
+              - to_port          = 0
+                # (1 unchanged attribute hidden)
+            },
+        ] -> null
+      - id                     = "sg-0cfd4540ff2980308" -> null
+      - ingress                = [
+          - {
+              - cidr_blocks      = [
+                  - "0.0.0.0/0",
+                ]
+              - description      = "HTTP"
+              - from_port        = 80
+              - ipv6_cidr_blocks = []
+              - prefix_list_ids  = []
+              - protocol         = "tcp"
+              - security_groups  = []
+              - self             = false
+              - to_port          = 80
+            },
+          - {
+              - cidr_blocks      = [
+                  - "0.0.0.0/0",
+                ]
+              - description      = "HTTPS"
+              - from_port        = 443
+              - ipv6_cidr_blocks = []
+              - prefix_list_ids  = []
+              - protocol         = "tcp"
+              - security_groups  = []
+              - self             = false
+              - to_port          = 443
+            },
+          - {
+              - cidr_blocks      = [
+                  - "0.0.0.0/0",
+                ]
+              - description      = "SSH"
+              - from_port        = 22
+              - ipv6_cidr_blocks = []
+              - prefix_list_ids  = []
+              - protocol         = "tcp"
+              - security_groups  = []
+              - self             = false
+              - to_port          = 22
+            },
+        ] -> null
+      - name                   = "nodejs-sg" -> null
+      - owner_id               = "122444737672" -> null
+      - revoke_rules_on_delete = false -> null
+      - tags                   = {
+          - "Name" = "nodejs-sg"
+        } -> null
+      - tags_all               = {
+          - "Name" = "nodejs-sg"
+        } -> null
+      - vpc_id                 = "vpc-01f89a4f34ac95bd4" -> null
+        # (1 unchanged attribute hidden)
+    }
+
+Plan: 0 to add, 0 to change, 10 to destroy.
+
+Do you really want to destroy all resources?
+  Terraform will destroy all your managed infrastructure, as shown above.
+  There is no undo. Only 'yes' will be accepted to confirm.
+
+  Enter a value: yes
+
+module.networking.aws_route_table_association.public: Destroying... [id=rtbassoc-08edaf7baa31a6aa7]
+module.networking.aws_subnet.private: Destroying... [id=subnet-0d4fc7b8544f84f7f]
+module.nodejs_instance.aws_instance.nodejs: Destroying... [id=i-0e78138f060f1f38e]
+module.mongodb_instance.aws_instance.mongodb: Destroying... [id=i-08ebdd01a32013876]
+module.networking.aws_route_table_association.public: Destruction complete after 1s
+module.networking.aws_route_table.public: Destroying... [id=rtb-06a10ad557200f6a1]
+module.networking.aws_subnet.private: Destruction complete after 1s
+module.networking.aws_route_table.public: Destruction complete after 0s
+module.networking.aws_internet_gateway.main: Destroying... [id=igw-0fa09bc30bb8e97d8]
+module.mongodb_instance.aws_instance.mongodb: Still destroying... [id=i-08ebdd01a32013876, 00m10s elapsed]
+module.nodejs_instance.aws_instance.nodejs: Still destroying... [id=i-0e78138f060f1f38e, 00m10s elapsed]
+module.networking.aws_internet_gateway.main: Still destroying... [id=igw-0fa09bc30bb8e97d8, 00m10s elapsed]
+module.mongodb_instance.aws_instance.mongodb: Still destroying... [id=i-08ebdd01a32013876, 00m20s elapsed]
+module.nodejs_instance.aws_instance.nodejs: Still destroying... [id=i-0e78138f060f1f38e, 00m20s elapsed]
+module.networking.aws_internet_gateway.main: Still destroying... [id=igw-0fa09bc30bb8e97d8, 00m20s elapsed]
+module.networking.aws_internet_gateway.main: Destruction complete after 29s
+module.nodejs_instance.aws_instance.nodejs: Still destroying... [id=i-0e78138f060f1f38e, 00m30s elapsed]
+module.mongodb_instance.aws_instance.mongodb: Still destroying... [id=i-08ebdd01a32013876, 00m30s elapsed]
+module.mongodb_instance.aws_instance.mongodb: Destruction complete after 31s
+module.security_groups.aws_security_group.mongodb: Destroying... [id=sg-0750be766a1c8980f]
+module.security_groups.aws_security_group.mongodb: Destruction complete after 1s
+module.nodejs_instance.aws_instance.nodejs: Still destroying... [id=i-0e78138f060f1f38e, 00m40s elapsed]
+module.nodejs_instance.aws_instance.nodejs: Destruction complete after 41s
+module.networking.aws_subnet.public: Destroying... [id=subnet-08d1e4843959ddca3]
+module.security_groups.aws_security_group.nodejs: Destroying... [id=sg-0cfd4540ff2980308]
+module.networking.aws_subnet.public: Destruction complete after 1s
+module.security_groups.aws_security_group.nodejs: Destruction complete after 1s
+module.networking.aws_vpc.main: Destroying... [id=vpc-01f89a4f34ac95bd4]
+module.networking.aws_vpc.main: Destruction complete after 1s
+
+Destroy complete! Resources: 10 destroyed.
